@@ -35,21 +35,21 @@
 .profile-content__category-title {
     color: rgba(39, 140, 39, 0.96);
 }
-
+/* 
 .profile-content__category--hidden-mobile {
     display: none;
-}
+} */
 
 .profile-content__element {
     display: flex;
     flex-direction: column;
 }
 
-.profile-content__element--hidden-mobile {
+/* .profile-content__element--hidden-mobile {
     display: flex;
     flex-direction: column;
     display: none;
-}
+} */
 
 .profile-content__title {
     font-weight: bold;
@@ -78,19 +78,19 @@
         order: -1;
     }
 
-    .profile-content__category--hidden-mobile{
+    /* .profile-content__category--hidden-mobile{
         display: flex;
         flex-direction: column;
     }
 
-    /*fix: anders als stipje zichtbaar*/
+    // fix: anders als stipje zichtbaar 
     .profile-content__category--hidden-mobile hr{
         width: 100%;
     }
 
     .profile-content__element--hidden-mobile {
         display: flex;
-    }
+    } */
 
     .profile-content__element-header{
         display: flex;
