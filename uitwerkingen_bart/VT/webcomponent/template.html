@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>webcomponents</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+<!---
+
+1. maak HTML pagina met p element
+2. maak template (id attribuut, p element)
+3. hoe voeg je template toe aan pagina?
+    - probeer eens met html tag die gelijk is aan id (werkt niet)
+    - JS: customElements.define
+    - voeg html tag toe met "define" gekozen naam
+    - f12 -> hoe ziet de HTML eruit? (zie shadowroot)
+
+4. zorg dat de P bold wordt
+    - Welke P wordt er bolg en welke niet?
+
+5. maak delen dynamisch met een slot
+
+
+-->
+<body>
+
+
+
+
+
+
+
+
+    <p>Mijn normale tekst.</p>
+
+
+
+
+
+    <template id="my_component_tpl">
+        <p class="my_p">Dit is de tekst</p>
+    </template>
+
+    <my-component></my-component>
+
+    <script>
+
+        class my_component extends HTMLElement {
+            constructor() {
+                super();
+                let template = document.getElementById("my_component_tpl");
+                let templateContent = template.content;
+
+                const shadowRoot = this.attachShadow({ mode: "closed" });
+                shadowRoot.appendChild(templateContent.cloneNode(true));
+            }
+        }
+
+        customElements.define(
+            "my-component", my_component
+
+        );
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<template id="my_component_slot_tpl">
+        <p class="my_p"><slot name="my-text">De standaard tekst</slot></p>
+    </template>
+
+
+    <my-component>
+        <span slot="my-text">tekst in mijn 1e slot component</span>
+    </my-component>
+
+
+    <my-component>
+        <span slot="my-text">mijn tweede component</span>
+    </my-component>-->
+
+
+</body>
+</html>

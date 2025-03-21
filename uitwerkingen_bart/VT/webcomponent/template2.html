@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>webcomponents</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    </head>
+
+
+    <body>
+
+        <style>
+            p { font-weight: bold; }
+        </style>
+
+
+        <p>Mijn normale tekst.</p>
+
+        <template id="my-component-tpl">
+            <style>
+                p { font-weight: bold; color: red;}
+            </style>
+
+            <p>
+                <slot name="tekst">Dit is de standaard tekst uit het template</slot>
+            </p>
+        </template>
+
+        <mijn-component></mijn-component>
+        <mijn-component>
+            <div slot="tekst">De nieuwe tekst.</div>
+        </mijn-component>
+        <mijn-component>
+            <h1 slot="tekst">De nieuwe h1 tekst.</h1>
+        </mijn-component>
+        <mijn-component>
+            <p slot="tekst">De nieuwe tekst.</p>
+        </mijn-component>
+
+        <script>
+
+        class my_component extends HTMLElement {
+            constructor() {
+                super();
+                let template = document.getElementById("my-component-tpl");
+                let templateContent = template.content;
+
+                const shadowRoot = this.attachShadow({ mode: "closed" });
+                shadowRoot.appendChild(templateContent.cloneNode(true));
+            }
+        }
+
+        customElements.define(
+            "mijn-component", my_component
+
+        );
+
+            </script>
+
+
+
+    </body>
+
+</html>

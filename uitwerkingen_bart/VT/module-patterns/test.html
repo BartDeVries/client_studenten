@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CV Bart de Vries</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+
+<body>
+
+    <div class="page">
+        <section class="personalia">
+            
+            <img class="person-logo" src="images/foto.jpg">
+            <h1 class="person-name">Bart de Vries</h1>
+            <!--<script type="module" src="./js/RMP_CalculatorApp.js"></script>
+            <script type="module" src="./js/Class_CalculatorApp.js"></script>-->
+
+        </section>  
+    </div>
+
+    <script>
+
+
+        if (1 == 1) {
+            // Losse functies en variabelen
+            // Geen samenhang en interne attributen
+            //      (zoals total) bestaan niet
+            var total = 0;
+
+            function add(a, b) {
+                total += a + b;
+                return a + b;
+            }
+
+            const sum = function (a, b) {
+                return total + a + b;
+            }
+
+            console.log("add obv functions: " + add(2, 3)); // 5
+            total += 1000;
+            console.log("sum obv functions: " + sum(2, 3)); // 5
+        }
+
+
+        if (1 == 1) {
+
+            // Class versie
+            // Wel samenhang door de class
+            // Interne total property beschermd
+            class Calc {
+                #total = 0;
+
+                add(a, b) {
+                    this.#total += a + b;
+                    return a + b;
+                }
+
+                sum(a, b) {
+                    return this.#total + a + b;
+                }
+            }
+
+            let calc = new Calc();
+            console.log("add obv class: " + calc.add(2, 3)); // 5
+            calc.total += 1000; // beschermd!
+            console.log("sum obv class: " + calc.sum(2, 3)); // 10
+            // debugger;
+        }
+
+
+
+        if (1 == 1) {
+            // Revealing Module Pattern (RMP) versie
+            // Creeert samenhang o.b.v. functies
+            // mogelijkheid tot privats en bescherming 
+            //    van interne variabelen
+            Calc_RMP = (function () {
+                let total = 0;
+
+                const addIntern = function (a, b) {
+                    total += a + b;
+                    return a + b
+                };
+
+                const sumIntern = function (a, b) {
+                    return total + a + b
+                };
+
+                return {
+                    // externe naam : interne naam
+                    add: addIntern,
+                    sum: sumIntern
+                }
+            })();
+        
+            console.log("add obv RMP: " + Calc_RMP.add(2, 3)); // 5
+            Calc_RMP.total += 1000; // beschermd!
+            console.log("sum obv RMP: " + Calc_RMP.sum(2, 3)); // 10
+        }
+
+
+
+
+
+
+
+
+
+        class ElementRemover {
+            constructor (selector) {
+                this.elems = document.querySelectorAll(selector);
+            }
+
+            RemoveAll () {
+                for (let elem of this.elems) {
+                    elem.remove();
+                }
+            }
+        }
+        
+        let clsScript = new ElementRemover('.person-name');
+        clsScript.RemoveAll();
+
+
+
+
+        let elems = document.querySelectorAll('.person-name');
+
+        elems.forEach(function (elem) {
+            elem.remove();
+        });
+
+
+
+    </script>
+</body>

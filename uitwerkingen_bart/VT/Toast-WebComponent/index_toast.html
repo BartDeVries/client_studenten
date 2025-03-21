@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <template id="template_toast-notification">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+            * {
+                font-family: 'Inter', sans-serif;
+            }
+
+            .flex {
+                display: flex;
+            }
+
+            .bg-yellow-500 {
+                background-color: #f59e0b;
+            }
+
+            .items-center {
+                align-items: center;
+            }
+
+            .w-full {
+                width: 100%;
+            }
+
+            .max-w-xs {
+                max-width: 12.5rem;
+            }
+
+            .p-4 {
+                padding: 1rem;
+            }
+
+            .rounded-lg {
+                border-radius: 0.5rem;
+            }
+
+            .shadow-sm {
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            }
+
+            .dark\:text-gray-400 {
+                color: #9ca3af;
+            }
+
+            .text-white {
+                color: #ffffff;
+            }
+
+            .ms-3 {
+                margin-left: 0.75rem;
+            }
+
+            .text-sm {
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+            }
+
+            .font-normal {
+                font-weight: 400;
+            }
+
+            .ms-auto {
+                margin-left: auto;
+            }
+
+            .-mx-1\.5 {
+                margin-left: -0.375rem;
+                margin-right: -0.375rem;
+            }
+
+            .-my-1\.5 {
+                margin-top: -0.375rem;
+                margin-bottom: -0.375rem;
+            }
+
+            .hover\:text-gray-900:hover {
+                color: #111827;
+            }
+
+            .rounded-lg {
+                border-radius: 0.5rem;
+            }
+
+            .focus\:ring-2:focus {
+                box-shadow: 0 0 0 2px rgba(156, 163, 175, 0.5);
+            }
+
+            .focus\:ring-gray-300:focus {
+                box-shadow: 0 0 0 2px #d1d5db;
+            }
+
+            .p-1\.5 {
+                padding: 0.375rem;
+            }
+
+            .cursor-pointer {
+                cursor: pointer;
+            }
+
+            .inline-flex {
+                display: inline-flex;
+            }
+
+            .items-center {
+                align-items: center;
+            }
+
+            .justify-center {
+                justify-content: center;
+            }
+
+            .h-8 {
+                height: 2rem;
+            }
+
+            .w-8 {
+                width: 2rem;
+            }
+
+            .sr-only {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                border: 0;
+            }
+
+            .w-3 {
+                width: 0.75rem;
+            }
+
+            .text-white {
+                color: #ffffff;
+            }
+
+            .h-3 {
+                height: 0.75rem;
+            }
+
+            .justify-around {
+                justify-content: space-around;
+            }
+
+            button {
+                background: transparent;
+                border: 0;
+            } 
+
+            .m-2 {
+                margin: 1rem;
+            }
+        </style>
+        <div class="m-2 flex bg-yellow-500 justify-around items-center w-full max-w-xs p-4 bg-white rounded-lg shadow-sm">
+
+            <slot name="text" class="text-white ms-3 text-sm font-normal"></slot>
+
+            <button type="button" close-toast
+                class="ms-auto -mx-1.5 -my-1.5 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 cursor-pointer inline-flex items-center justify-center h-8 w-8"
+                aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-3 text-white h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+            </button>
+        </div>
+    </template>
+
+    <div id="toast-container"
+style="display: flex; flex-direction: column-reverse; align-items: end; padding: 50px; position: fixed; right: 0; bottom: 0; width: 50%; height: 100%;">
+       
+    </div>
+
+
+    <button onclick="appendToast('IETS IS FOUT')">VOEG TOE</button>
+
+    <script>
+        function appendToast(text) {
+            document.getElementById("toast-container").innerHTML += `<cm-toast><span slot='text'>${text}</span></cm-toast>`;
+        }
+
+        class ToastNotification extends HTMLElement {
+            shadowRoot;
+            constructor() {
+                super();
+                this.shadowRoot = this.attachShadow({ mode: 'open' });
+                let clone = document.getElementById('template_toast-notification')
+                    .content.cloneNode(true);
+                this.shadowRoot.appendChild(clone);
+                this.attachEventListeners();
+            }
+
+            attachEventListeners() {
+                this.addEventListener('click', this.removeToast);
+            }
+
+            removeToast() {
+                this.parentElement.removeChild(this);
+            }
+        }
+
+        customElements.define('cm-toast', ToastNotification);
+    </script>
+
+</body>
+
+</html>
